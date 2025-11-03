@@ -2,4 +2,7 @@
 */pan*
 *.spn
 *.trail
+tr-*-*[0-9].c
+tc-*.c
+model-0-test.log
 
