@@ -5,6 +5,8 @@ This directory contains formal models written in Promela and YAML configuration 
 
 Currently this is tailored towards the RTEMS operating system.
 
+**NEW** Added a WP directory to hold material about using weakest-preconditions with RTEMS action-refinement specification items to infer formal API semantics.
+
 ## Contributors
 
 * Andrew Butterfield
