@@ -1,0 +1,72 @@
+\section{Classic WP}
+
+Based on \url{https://en.wikipedia.org/wiki/Predicate_transformer_semantics}
+
+\subsection{Hoare Triple}
+
+\begin{eqnarray*}
+    \setof{P} C \setof{Q}
+\end{eqnarray*}
+
+\subsection{Weakest Precondition}
+
+\begin{eqnarray*}
+    \setof{Q}S\setof{R} 
+    &\equiv& 
+    ( \forall P \bullet
+      \setof{P}S\setof{R} \equiv (P \implies Q) )
+\\ &=& wp(S,R)
+\end{eqnarray*}
+
+\def\skipC{\mathtt{skip}}
+\def\abortC{\mathtt{abort}}
+
+\def\ifC{\mathtt{if\ }}
+\def\thenC{\mathtt{\ then\ }}
+\def\elseC{\mathtt{\ else\ }}
+\def\endC{\mathtt{\ end}}
+\def\whileC{\mathtt{while\ }}
+\def\doC{\mathtt{\ do\ }}
+\def\fiC{\mathtt{\ fi}}
+\def\gotoC{\mathtt{goto\ }}
+
+\def\seqC{\mathbin{\!;\!\!}}
+\def\enblC{\rightarrow}
+\def\altC{[\!]}
+
+\begin{eqnarray*}
+   \wp(\skipC,R) &=& R
+\\ \wp(\abortC,R) &=& \False
+\\ \wp(x:=E,R) &=& \forall y \bullet y = E \implies R[y/x]
+\\             &=& R[E/x] \qquad \text{if $E$ is well defined}
+\\ \wp(S_1 \seqC S_2,R) &=& \wp(S_1,\wp(S_2,R))
+\\ \wp(\ifC E \thenC S_1 \elseC S_2 \endC,R)
+   &=& (E \implies \wp(S_1,R)) \land (\lnot E \implies \wp(S_2,R))
+\\ \wlp(\whileC E \doC S \endC)_{Inv}
+   &=& (E \land Inv \implies \wlp(S,Inv)) 
+       \land 
+       (\lnot E \land Inv \implies R)
+\\ \wp(\whileC E \doC S \endC)_{Inv}
+   &=& (E \land Inv \implies vf \mof wfs) \land {}
+\\ & & (E \land Inv \land v = vf \implies \wp(S,Inv \land v < vf)) \land {} 
+\\ & & (\lnot E \land Inv \implies R)
+\\ &=& \text{strongest\ } 
+       Z:[Z \equiv (E \land \wp(S,Z)) \lor (\lnot E \land R)]
+\end{eqnarray*}
+
+Beyond the while-language:
+
+\begin{eqnarray*}
+    \wp(\ifC E_1 \enblC S_1 \altC \dots \altC E_n \enblC S_n,R)
+    &=& (E_1 \lor \dots \lor E_n) 
+\\  & & {} \land (E_1 \implies \wp(S_1,R))
+\\  & & \dots
+\\  & & {} \land (E_n \implies \wp(S_n,R))
+\\ \wp(x:l[pre,post],R)
+   &=&
+   (\exists l :: pre) \land {}
+\\ && (\forall s : (\forall l : pre : post[s/x]) : R[s/x] )
+\\ \wp(\gotoC L,R) &=& \text{w. p. at label } L
+\end{eqnarray*}
+
+Note that $\gotoC L$ is miraculous !

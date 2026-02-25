@@ -1,0 +1,11 @@
+WP Links
+
+1.  https://en.wikipedia.org/wiki/Predicate_transformer_semantics 
+
+  has WP for :
+     specification statements   x:l[pre(x,l),post(x,l)]
+     goto (!!)
+
+2. https://lamport.azurewebsites.net/pubs/pubs.html#bakery
+
+  Lamport about the bakery algorithm, see also #new-approach, #lamport-win
