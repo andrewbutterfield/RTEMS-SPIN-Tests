@@ -1,0 +1,544 @@
+%
+%
+% ivdm.sty
+%
+% (c) 1995--2004 Andrew Butterfield (Comp. Sci., TCD)
+%
+% TeX/LaTeX macros for the Irish School
+%    of VDM (Vienna Development Method)
+%
+\def\IVDMVNO{3.8}
+\def\IVDMVYEAR{2004}
+\def\IVDMVMONTH{11}
+\def\IVDMVDAY{29}
+\def\IVDMVDATE{\IVDMVYEAR--\IVDMVMONTH--\IVDMVDAY}
+\def\filedate{\IVDMVYEAR/\IVDMVMONTH/\IVDMVDAY}
+\def\fileversion{\IVDMVNO}
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+
+\ProvidesPackage{ivdm}[{\IVDMVYEAR/\IVDMVMONTH/\IVDMVDAY\space\IVDMVNO\space Irish VDM notation}]
+
+%
+\typeout{Document Style `ivdm' <v\fileversion-\filedate >.}
+%
+%\@ifpackageloaded{zed-csp}%
+%{\typeout{Package `zed-csp' already loaded}}%
+%{\typeout{Package `zed-csp' not loaded}}
+%
+% from zed.sty - we want this....
+%
+\mathchardef\spot="320F
+\mathcode`\@=\spot
+\mathcode`\|=\mid
+%
+\def\MMA{M\'{\i}che\'{a}l Mac an Airchinnigh}
+\def\AB{Andrew Butterfield}
+\def\GOR{Gerard O'Regan}
+\def\AD{Alexis Donnelly}
+\def\AH{Arthur Hughes}
+\def\LMA{Lugh Mac an Abha}
+%
+% General
+%
+\def\ISCM{\textsf{M${}_C^\clubsuit$}}
+\def\VDM{{\sl VDM\/}}
+\def\IRISHVDM{{\sl VDM${}^\clubsuit$}}
+\def\ivdm{{\sf ivdm}}
+\def\VDMSL{\mbox{{\sl VDM-SL\/}}}
+\def\Zed{\ensuremath{\mathcal{Z}}}
+%
+% Styles
+%
+\def\bdname#1{\ensuremath{\mathbb{#1}}}
+\def\tagname#1{\ensuremath{\mathop{\textsc{#1}}}}
+\def\constname#1{\textsc{#1}}
+\def\domname#1{\ensuremath{\mathit{#1}}}
+\def\sysopname#1{\texttt{#1}}
+\def\sysprefix#1{\texttt{#1-}}
+\def\opname#1{\textrm{#1}}
+\def\opprefix#1{\textrm{#1-}}
+\def\combname#1{\textsf{#1}}
+\def\structname#1{\ensuremath{\mathcal{#1}}}
+\def\keyname#1{\textbf{#1}}
+\def\methodprefix#1{\textsl{#1-}}
+\def\dompostfix#1{\textsf{-#1}}
+%
+% Method
+%
+\def\inv#1{\methodprefix{inv}#1}
+\def\sel#1{\methodprefix{sel}#1}
+\def\tagsof#1{\methodprefix{tag}#1}
+\def\pre#1{\methodprefix{pre}#1}
+\def\post#1{\methodprefix{post}#1}
+\def\is#1{\methodprefix{is}#1}
+\def\retr#1{\methodprefix{retr}#1}
+\def\init#1{\ensuremath{{#1}_0}}
+\def\NYD{\textsc{Not Yet Def'd.}}
+%
+% ivdm shorthands
+%
+%   we provide short forms of the style and method macros
+%   to facilitate their direct use in documents,
+%   and alleviate need to pre-define names as macros.
+%
+\def\DN#1{\domname{#1}}
+\def\iDN#1{\inv{\domname{#1}}}
+\def\rDN#1{\retr{\domname{#1}}}
+\def\ON#1{\opname{#1}}
+\def\prON#1{\methodprefix{pre}{\opname{#1}}}
+\def\psON#1{\methodprefix{post}{\opname{#1}}}
+\def\SN#1{\sysopname{#1}}
+\def\TN#1{\tagname{#1}}
+\def\CN#1{\constname{#1}}
+\def\PN#1{\texttt{#1}}
+\def\SB#1{\semlb{#1}\semrb}
+\def\MC#1{\mathcal{#1}}
+\def\KN#1{\textbf{#1}}
+\def\FN#1{\textsf{#1}}
+%
+\def\Zero{\mathbf{0}}
+\def\One{\mathbf{1}}
+\def\Two{\mathbf{2}}
+\def\TObj{\Omega}
+%
+% Proof
+%
+\def\DEF#1{\mbox{\bf D$\lb#1\rb$}}
+\def\TYPEOF#1{\mbox{\bf T$\lb#1\rb$}}
+\def\lhs{\textit{lhs}}
+\def\rhs{\textit{rhs}}
+\def\isTotal{\sysopname{isTotal}}
+\def\QED{\hfill$\clubsuit$}
+\def\pref#1{\ref{#1}, p\pageref{#1}}
+%
+% Overloading
+%
+\def\BOTTOM{\bot}
+\def\undef{\bot}
+\def\after{\mathbin{\circ}}
+\def\gafter{\mathbin{\odot}}
+\def\thenc{\mathbin{;}}
+\def\inverse#1{{#1}^{-1}}
+\def\union{\cup}
+\def\disj{\mathrel{\not\!\cap}}
+\def\djunion{\sqcup}
+\def\remove{\mathbin{\triangleleft\!\!\!\!-}}
+\def\restrict{\triangleleft}
+\def\reduce#1{{{}^{#1}\!/}}
+\def\filter{\sysopname{filter}}
+%
+% Expressions
+%
+\def\DONOTCARE{\BOTTOM}
+\def\UNDEFINED{\BOTTOM}
+\def\bop{\star}
+\def\iso{\mathrel{\textstyle{\raise1.18pt\hbox{$\approx$}\lower1.18pt\hbox{$\mkern-14mu{\approx}$}}}}
+\def\Max{\uparrow}
+\def\Min{\downarrow}
+%
+\def\suchthat{\;\bullet\;}
+\def\wehave{\;\bullet\;}
+%
+\def\defeq{\mathrel{\;\widehat{=}\;}}
+%\def\defeq
+% {\mathrel{\raise0.75ex\hbox{$\scriptstyle\underline{\underline{\triangle}}$}}}
+\def\Cond#1#2#3{#1\;\rightarrow\;#2\;,\;#3}
+\def\Grd#1#2{#1\;\rightarrow\;#2}
+\def\PGr#1#2{\phantom{#1}\;\rightarrow\;#2}
+\def\EGr#1#2{\phantom{#1\;\rightarrow\;}#2}
+%
+\def\Cross{\mathbin{\times}}
+\def\Alt{\mathbin{\mid}}
+\def\DisjU{+}
+\def\inj#1{\sysprefix{inj}{#1}}
+\def\is#1{\sysprefix{is}{#1}}
+\def\VOID{\domname{Void}}
+\def\NIL{\domname{Nil}}
+%
+\def\Nil{\constname{Nil}}
+\def\proj{\pi}
+\def\projp#1{\pi_{#1}}
+\def\injp#1{\imath_{#1}}
+%
+\def\WHERE{\keyname{where}}
+\def\LET{\keyname{let}}
+\def\LETREC{\keyname{letrec}}
+\def\ENDLET{\keyname{endlet}}
+\def\AND{\keyname{and}}
+\def\IN{\keyname{in}}
+\def\IF{\keyname{if}}
+\def\IS{\keyname{is}}
+\def\THEN{\keyname{then}}
+\def\ELSE{\keyname{else}}
+\def\ELSIF{\keyname{elsif}}
+\def\ENDIF{\keyname{endif}}
+\def\CASE{\keyname{case}}
+\def\OTHERWISE{\keyname{otherwise}}
+\def\ENDCASE{\keyname{endcase}}
+\def\ifexpr#1#2#3{\IF\;{#1}\;\THEN\;{#2}\;\ELSE\;{#3}}
+\def\OR{\keyname{or}}
+\def\OF{\KN{of}}
+\def\MATCH{\keyname{match}}
+\def\WHILE{\keyname{while}}
+\def\ENDWHILE{\keyname{endwhile}}
+\def\DO{\keyname{do}}
+\def\ENDDO{\keyname{enddo}}
+\def\REPEAT{\keyname{repeat}}
+\def\UNTIL{\keyname{until}}
+\def\STATE{\keyname{state}}
+\def\OPS{\keyname{ops}}
+\def\USES{\keyname{uses}}
+\def\WITH{\keyname{with}}
+%
+% Functions
+%
+%
+\def\funarrow{\mathbin{\rightarrow}}
+\def\then{\mathbin{\rightarrow}}
+\def\Fun#1#2{{#1}\funarrow{#2}}
+\def\FFun#1#2#3{{#1}\funarrow{#2}\funarrow{#3}}
+\def\FFFun#1#2#3#4{{#1}\funarrow{#2}\funarrow{#3}\funarrow{#4}}
+\def\FFFFun#1#2#3#4#5{{#1}\funarrow{#2}\funarrow{#3}\funarrow{#4}\funarrow{#5}}
+\def\Chg#1{\Delta{#1}}
+\def\Pred#1{\Fun{#1}{\Bool}}
+\def\Bop#1{\fundef{#1\Cross#1}{#1}}
+\def\Rel#1{\fundef{#1\Cross#1}{\Bool}}
+\def\pfunarrow%
+{\mathrel{\mathop{\kern0pt\hbox{$\rightarrow$}}\limits^{\hbox{$\scriptstyle p$}}}}
+\def\PFun#1#2{{#1}\pfunarrow{#2}}
+\def\nullfun{\theta_f}
+\def\fun{\ensuremath{f}}
+\def\lb{[}
+\def\rb{]}
+\def\semlb{[\![}
+\def\semrb{]\!]}
+%
+\def\Id{\ensuremath{\mathcal{I}}}
+\def\afterf{\after}
+\def\thenf{\thenc}
+\def\gafterf{\gafter}
+\def\while{\sysopname{while}}
+\def\until{\sysopname{until}}
+\def\iterate{\sysopname{iterate}}
+%
+\def\Labs#1#2{\lambda#1\cdot{#2}}
+\def\Laabs#1#2#3{\lambda#1\cdot\lambda#2\cdot{#3}}
+\def\Laaabs#1#2#3#4{\lambda#1\cdot\lambda#2\cdot\lambda#3\cdot{#4}}
+\def\Lvabs#1#2#3{\lambda{#1}_1\cdots\lambda{#1}_{#2}\cdot{#3}}
+%
+\def\K{\combname{K}}
+\def\KD{\Laabs{x}{y}{x}}
+\def\Sc{\combname{S}}
+\def\ScD{ \Laaabs{x}{y}{z}{ xz(yz) } }
+\def\I{\combname{I}}
+\def\ID{\Labs{x}{x}}
+\def\B{\combname{B}}
+\def\BD{\Laaabs{x}{y}{z}{x(yz)}}
+%
+% Scalars
+%
+\def\Bool{\bdname{B}}
+\def\False{\constname{False}}
+\def\True{\constname{True}}
+\def\lnot{\neg}
+\def\land{\mathbin{\wedge}}
+\def\lor{\mathbin{\vee}}
+\def\implies{\mathbin{\Rightarrow}}
+\def\impliedby{\mathbin{\Leftarrow}}
+\def\iff{\mathbin{\Leftrightarrow}}
+\def\exor{\mathbin{\oplus}}
+%
+\def\Nat{\bdname{N}}
+\def\Pos{\ensuremath{\Nat_1}}
+\def\Int{\bdname{Z}}
+\def\Rat{\bdname{Q}}
+\def\Real{\bdname{R}}
+\def\posreal{\ensuremath{\Real_{>0}}}
+\def\Cmpx{\bdname{C}}
+\def\Prob{\bdname{P}}
+\def\Num{\bdname{NUM}}
+\def\mod{\mathbin{\sysopname{mod}}}
+\def\Numr{\sysopname{Numr}}
+\def\Denm{\sysopname{Denm}}
+\def\Mant{\sysopname{Mant}}
+\def\Frac{\sysopname{Frac}}
+%
+\def\Char{\bdname{A}}
+\def\Ord{\sysopname{Ord}}
+\def\Chr{\sysopname{Chr}}
+\def\Ident{\bdname{I}}
+%
+% Optional (Maybe) type
+%
+\def\Maybe#1{[#1]}
+\def\Opt#1{[#1]}
+\def\Nowt{\ensuremath{\varnothing}}
+\def\Just#1{\ensuremath{\underline{#1}}}
+\def\overwrite{\SN{ovr}}
+%
+% Sets
+%
+\def\Set{\structname{P}}
+\def\SetOf#1{{#1}\dompostfix{set}}
+\def\Setp{\structname{P'}}
+%
+\def\setv{\ensuremath{\mathrm{S}}}
+\def\nullset{\ensuremath{\emptyset}}
+\def\setof#1{\{\,#1\,\}}
+\def\setc#1#2{\{\,#1 \;|\;#2 \,\}}
+\def\setcc#1#2#3{\{\,#1 \;|\;#2 \;\land\; #3 \,\}}
+\def\setccc#1#2#3#4{\{\,#1 \;|\;#2 \;\land\; #3 \;\land\; #4 \,\}}
+\def\mof{\in}
+\def\chrf{\raisebox{0.3ex}{$\chi$}}
+\def\chrfe#1{\chi\lb#1\rb}
+\def\ndc{\pi_\in}
+%
+\def\sdjunion{\djunion}
+\def\sunion{\union}
+\def\distunion{\bigcup}
+\def\intsct{\cap}
+\def\distintsct{\bigcap}
+\def\setdiff{\setminus}
+\def\symdiff{\bigtriangleup}
+\def\sremove{\remove}
+\def\srestrict{\restrict}
+\def\sreduce#1{\reduce{#1}}
+\def\sfilter{\filter}
+%
+\def\card{\ensuremath{\#}}
+\def\CARD{\sysopname{card}}
+\def\norm#1{\mid{#1}\mid}
+\def\setr#1#2{\setof{{#1}\ldots{#2}}}
+\def\Maxs#1{{}^{#1}\uparrow}
+\def\Mins#1{{}^{#1}\downarrow}
+%
+% Sequences
+%
+\def\Seq#1{{#1}^{\star}}
+\def\SeqOf#1{{#1}\dompostfix{seq}}
+\def\Seqp#1{{#1}^+}
+\def\SeqpOf#1{{#1}\dompostfix{seq1}}
+\def\Seqt#1#2{{#1}^{#2}}
+\def\USeq#1{{#1}_!^{\star}}
+\def\SSeq#1{{#1}_\leq^{\star}}
+\def\USSeq#1{{#1}_{\leq!}^{\star}}
+\def\String{\ensuremath{\Seq{\Char}}}
+%
+\def\seq{\sigma}
+\def\nullseq{\Lambda}
+\def\seqof#1{\langle#1\rangle}
+\def\cons{\mathbin{\!:\!}}
+\def\:{\cons}
+\def\conc{\mathbin{{}^\frown}}
+\def\cat{\mathbin{{}^{\scriptscriptstyle\wedge}}}
+\def\hd{\sysopname{hd}}
+\def\tl{\sysopname{tl}}
+%
+\def\lst{\sysopname{lst}}
+\def\frnt{\sysopname{frnt}}
+\def\elems{\sysopname{elems}}
+\def\rev{\sysopname{rev}}
+\def\occ{\sysopname{occ}}
+\def\indexOf{\sysopname{indexOf}}
+%
+\def\len{\sysopname{len}}
+\def\inds{\sysopname{inds}}
+\def\items{\sysopname{items}}
+\def\fstocc{\sysopname{fstocc}}
+\def\ix#1{[#1]}
+\def\ixr#1#2{[#1\ldots#2]}
+\def\select#1#2{#1\ix{#2}}
+\def\selectr#1#2#3{#1\ixr{#2}{#3}}
+\def\seqr#1#2{\seqof{{#1}\ldots{#2}}}
+%
+\def\lfilter{\filter}
+\def\lrestrict{\restrict}
+\def\lremove{\remove}
+\def\lreduce#1{\reduce{#1}}
+\def\lreducel#1{\lreduce{#1}_l}
+\def\lreducer#1{\lreduce{#1}_r}
+\def\amap{\amalg}
+\def\amapl{\amap_l}
+\def\amapr{\amap_r}
+\def\acons{\GIXF{\bigsqcup}{13mu}{0.1ex}{}{\cons}}
+\def\aconc{\GIXF{\bigsqcup}{15mu}{-0.3ex}{}{\cat}}
+%
+% Maps
+%
+\def\maparrow%
+{\mathrel{\mathop{\kern0pt\hbox{$\rightarrow$}}\limits^{\hbox{$\scriptstyle m$}}}}
+\def\Map#1#2{{#1}\maparrow{#2}}
+\def\nullmap{\theta}
+\def\map{\mu}
+\def\mapto#1#2{#1\mapsto#2}
+\def\mapof#1{\{#1\}}
+\def\maplet#1#2{\mapof{\mapto{#1}{#2}}}
+\def\extend{\djunion}
+\def\mremove{\remove}
+\def\dom{\sysopname{dom}}
+\def\rng{\sysopname{rng}}
+%
+\def\override{\mathbin{\dagger}}
+\def\mapglue{\union}
+\def\mfilter{\filter}
+\def\mrestrict{\restrict}
+\def\rremove{\mathbin{\triangleright\!\!\!\!-}}
+\def\rrestrict{{\mathbin{\triangleright}}}
+%
+\def\minverse#1{\inverse{#1}}
+\def\invmap{\map^{-1}}
+\def\invmapp#1{\map_{#1}^{-1}}
+%
+% Indexing
+%
+\def\GIXF#1#2#3#4#5{%
+ \mathbin{{\textstyle#1\mkern-#2{\raise#3\hbox{\small$\mathord{#5}$}}\mkern5mu}_{#4}}}
+\def\ixop#1#2#3{\GIXF\bigcirc{#2}{#3}{}{#1}}
+\def\ixx{\mathbin{\displaystyle\bigcirc\mkern-13.5mu{\lower0.0ex\hbox{\small$\circ$}}\mkern5mu}}
+\def\ixxop#1#2#3{\mathbin{\ixx\mkern-#2{\lower#3\hbox{\small$#1$}}\mkern5mu}}
+%
+\def\Ix#1#2{\Fun{#1}{#2}}
+%
+\def\ixoperator{\GIXF{\bigcirc}{14.0mu}{-0.0ex}{}{\_}}
+\def\ixbop{\GIXF{\bigcirc}{14.0mu}{-0.0ex}{}{\star}}
+\def\ixadd{\GIXF{\bigcirc}{15.5mu}{+0.0ex}{}{+}}
+\def\ixsub{\GIXF{\bigcirc}{15.5mu}{+0.0ex}{}{-}}
+\def\ixunion{\GIXF{\bigcirc}{15.0mu}{-0.0ex}{}{\union}}
+\def\ixintsct{\GIXF{\bigcirc}{15.0mu}{+0.0ex}{}{\intsct}}
+\def\ixdjunion{\GIXF{\bigcirc}{15.0mu}{-0.0ex}{}{\djunion}}
+\def\ixprojp#1{\GIXF{{\LARGE\bigcirc}}{15.5mu}{0.2ex}{}{\scriptstyle{\projp{#1}}}}
+%
+\def\ixxunion{\ixxop{\union}{15.0mu}{0.1ex}}
+\def\ixxdjunion{\ixxop{\djunion}{15.0mu}{0.1ex}}
+%
+\def\Bag#1{\Map{#1}\Pos}
+\def\bag{\beta}
+\def\nullbag{\nullmap}
+\def\bagadd{\mathbin{\oplus}}
+\def\bagsub{\mathbin{\ominus}}
+\def\bagle{\mathrel{\preceq}}
+\def\bagsum{{\textstyle\sum}}
+\def\bagunion{\ixunion}
+\def\bagintsct{\ixintsct}
+%
+% Graphs
+%
+\def\grfarrow
+ {\mathrel{\mathop{\kern0pt\hbox{$\rightarrow$}}\limits^{\hbox{$\scriptstyle g$}
+}}}
+\def\grfparrow
+ {\mathrel{\mathop{\kern0pt\hbox{$\rightarrow$}}\limits^{\hbox{$\scriptstyle g'$
+}}}}
+\def\Graph#1#2{{#1}\grfarrow{#2}}
+\def\Grf#1#2{{#1}\grfparrow{#2}}
+%
+\def\grf{\gamma}
+\def\nullgrf{\nullmap}
+\def\gto#1#2{\mapto{#1}{\setof{#2}}}
+\def\grflet#1#2{\maplet{#1}{\setof{#2}}}
+\def\src{\sysopname{src}}
+\def\dst{\sysopname{dst}}
+\def\vrt{\sysopname{vert}}
+\def\linkc{\sysopname{linkc}}
+\def\gunion{\ixunion}
+\def\gdjunion{\ixdjunion}
+%
+\def\order{\sysopname{order}}
+\def\acyclic{\sysopname{acyclic}}
+\def\RC{\sysopname{RC}}
+\def\RO{\sysopname{RO}}
+\def\TC{\sysopname{TC}}
+\def\TO{\sysopname{TO}}
+\def\mins{\sysopname{mins}}
+\def\maxs{\sysopname{maxs}}
+%
+% Environments
+%
+\newtheorem{iDef}{Definition}
+\newtheorem{iThm}[iDef]{Theorem}
+\newtheorem{iLem}[iDef]{Lemma}
+\newtheorem{iPrp}[iDef]{Proposition}
+\newtheorem{iHyp}[iDef]{Hypothesis}
+\newtheorem{iCor}[iDef]{Corollary}
+%
+\newtheorem{iObl}[iDef]{Proof Obligation}
+\newenvironment{iPrf}[1]%
+ {\textbf{Proof of \ref{#1}: }}
+ {}
+\newenvironment{iNotes}[1]%
+ {\textbf{Notes on} $#1$:\small\begin{description}}%
+ {\end{description}}
+%
+% OBSOLETE MACROS - Backward Compatibility only - do not use.
+%
+\def\alt{\Alt}
+\def\oldlb{[\![}
+\def\oldrb{]\!]}
+\def\cond#1#2#3{\Cond{#1}{#2}{#3}}
+\def\iif#1{\mathrel{\lhd{\;#1\;}\rhd}}
+\def\guard#1#2{\Grd{#1}{#2}}
+\def\synname#1{\keyname{#1}}
+\def\reducep#1{\reduce{#1}}
+\def\fundef#1#2{{#1}\funarrow{#2}}
+\def\ffundef#1#2#3{{#1}\funarrow{#2}\funarrow{#3}}
+\def\fffundef#1#2#3#4{{#1}\funarrow{#2}\funarrow{#3}\funarrow{#4}}
+\def\ffffundef#1#2#3#4#5{{#1}\funarrow{#2}\funarrow{#3}\funarrow{#4}\funarrow{#5
+}}
+\def\bopdef#1{\fundef{#1\Cross#1}{#1}}
+\def\reldef#1{\fundef{#1\Cross#1}{\Bool}}
+\def\funnull{\nullfun}
+\def\funv{\fun}
+\def\funp#1{\ensuremath{\fun_{#1}}}
+\def\gafterp#1{\ensuremath{\gafter_{#1}}}
+%\def\boolean{\Bool}
+\def\natnum{\Nat}
+\def\posnum{\Pos}
+\def\intnum{\Int}
+\def\ratnum{\Rat}
+\def\realnum{\Real}
+\def\compnum{\Cmpx}
+\def\probnum{\Prob}
+\def\ident{\Ident}
+\def\false{\False}
+\def\true{\True}
+\def\Pset{\Set}
+\def\setnull{\nullset}
+\def\member{\mof}
+\def\choose{\ndc}
+\def\choice{\ndc}
+\def\CHRFN{\chrf}
+\def\CHRFNp#1{\chrfe{#1}}
+\def\intersect{\intsct}
+\def\seqstar#1{\Seq{#1}}
+\def\seqplus#1{\Seqp{#1}}
+\def\uniqueseqstar#1{\USeq{#1}}
+\def\sortseqstar#1{\SSeq{#1}}
+\def\seqdim#1#2{\Seqt{#1}{#2}}
+\def\seqv{\seq}
+\def\seqp#1{\sigma_{#1}}
+\def\seqnull{\nullseq}
+\def\lreducep#1{\lreducel{#1}}
+\def\rreducep#1{\lreducer{#1}}
+\def\lmapaccum{\amapl}
+\def\rmapaccum{\amapr}
+\def\mapaccum{\amap}
+\def\oldacons{\GIXF{\bigcirc}{11.5mu}{0.1ex}{}{\cons}}
+\def\oldaconc{\GIXF{\bigcirc}{13mu}{-0.3ex}{}{\cat}}
+\def\mapdef#1#2{\Map{#1}{#2}}
+\def\mapnull{\nullmap}
+\def\mapv{\map}
+\def\mapp#1{\map_{#1}}
+\def\bagdef#1{\Bag{#1}}
+\def\bagnull{\nullbag}
+\def\bagv{\bag}
+\def\bagintersect{\bagintsct}
+\def\grfdef#1#2{\Grf{#1}{#2}}
+\def\grfnull{\nullgrf}
+\def\grfv{\grf}
+\def\vto#1#2{\gto{#1}{#2}}
+\def\cUnion{\ixunion}
+\def\cdUnion{\ixdjunion}
+\def\DisjUnion{+}

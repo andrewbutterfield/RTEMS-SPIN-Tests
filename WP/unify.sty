@@ -1,0 +1,213 @@
+% unify.sty
+%
+\def\TYPO{{\Large \textbf{\textit{TYPO!?!}}}}
+\def\Def#1{\vspace{18pt}\textbf{Definition \thesubsection.{#1}}}
+\def\Law#1{\thesubsection\textbf{L{#1}}}
+\def\LL#1{\textbf{L{#1}}}
+\def\Hlth#1#2{\textbf{{#1}{#2}}}
+\def\Lem#1{\vspace{18pt}\textbf{Lemma \thesubsection.{#1}}}
+\def\Exer#1{\vspace{18pt}\textbf{Exercise \thesubsection.{#1}}}
+\def\Thm#1{\vspace{18pt}\textbf{Theorem \thesubsection.{#1}}}
+\def\Xmpl#1{\vspace{18pt}\textbf{Example \thesubsection.{#1}}}
+\def\Cxmpl#1{\vspace{18pt}\textbf{Counterexample \thesubsection.{#1}}}
+\def\Cor{\vspace{18pt}\textbf{Corollary}}
+\def\Expansion#1{\vspace{18pt}\textbf{Expansion of  \thesubsection.{#1}}}
+\def\Properties#1{\vspace{18pt}\textbf{Properties of  \thesubsection.{#1}}}
+
+\def\TR{\rule[-6pt]{0pt}{18pt}}
+\def\defeq{\mathrel{\;=_{df}\;}}
+\def\true{\ensuremath{\mathit{true}}}
+\def\false{\ensuremath{\mathit{false}}}
+\def\True{\ensuremath{\mathbf{true}}}
+\def\False{\ensuremath{\mathbf{false}}}
+\def\Skip{\ensuremath{\mathit{I\!\!I}}}
+
+\def\alf{\ensuremath{\alpha}}
+\def\cond#1{\lhd{#1}\rhd}
+
+\def\nondet{\ensuremath{\mathbin{\sqcap}}}
+\def\join{\nondet}
+\def\glb{\lceil\rceil}
+
+\def\meet{\ensuremath{\mathbin{\sqcup}}}
+\def\lub{\lfloor\rfloor}
+
+\def\iff{\ensuremath{\mathrel{\textbf{iff}}}}
+
+\def\wfp{\mu}
+\def\sfp{\nu}
+
+\def\Nat{\ensuremath{\mathcal{N}}}
+\def\HT#1{\{{#1}\}}
+\def\If{\text{If }}
+\def\Let{\text{Let }}
+\def\And{\text{ and }}
+\def\Then{\text{ then }}
+\def\Or{\text{ or }}
+\def\Where{\text{ where }}
+\def\Whenever{\text{ whenever }}
+\def\Provided{\text{ provided }}
+\def\wp{\ensuremath{\mathbin{\mathbf{wp}}}}
+
+\def\var{\mathbf{var}\;}
+\def\End{\mathbf{end}\;}
+
+\def\ok{\ensuremath{\mathit{ok}}}
+\def\design{\mathbin{\vdash}}
+\def\D{\ensuremath{\mathord{\mathcal{D}}}}
+\def\DD{\ensuremath{\mathord{\mathbf{D}}}}
+
+\def\HH{\Hlth{H}}
+
+\def\SS{\ensuremath{\mathbf{S}}}
+\def\TT{\ensuremath{\mathbf{T}}}
+
+\def\GE{\sqsupseteq}
+\def\LE{\sqsubseteq}
+
+\def\LABS#1#2#3{\lambda{#1}:{#2}\bullet{#3}}
+\def\ID{\mathit{id}}
+\def\OR{\mathit{or}}
+\def\AND{\mathit{and}}
+\def\PRE{\mathit{pre}}
+\def\ASS{\mathit{ass}}
+\def\POST{\mathit{post}}
+\def\IMP{\mathit{imp}}
+\def\IMPL{\mathit{imp}}
+
+\def\Approx{\mathit{approx}}
+\def\image{\mathit{image}}
+\def\TO{\mathbin{\rightarrow}}
+
+\def\UU{\ensuremath{\mathbf{U}}}
+
+\def\diamondplus{\GIXF{{\Large\diamond}}{10.5mu}{+0.1ex}{}{+}\!}
+\def\diamondminus{\GIXF{{\Large\diamond}}{10.5mu}{+0.1ex}{}{-}\!}
+
+\def\wposts{\backslash}
+
+\def\NT#1{<\!\!\textrm{#1}\!\!>}
+
+\def\state{\textit{state}}
+
+\def\DenRel{\ensuremath{\mathcal{R}}}
+\def\CASP{\ensuremath{\mathcal{S}}}
+
+\def\cont{\alpha l}
+\def\ram{\ensuremath{\mathit{ram}}}
+\def\op{\ensuremath{\mathbin{\mathit{op}}}}
+\def\jump{\texttt{jump }}
+\def\ass{\ensuremath{\mathbin{[\!]}}}
+
+\def\LDL{\texttt{LDL}}
+\def\STO{\texttt{STO}}
+\def\ADD{\texttt{ADD}}
+\def\cjump{\texttt{cjump}}
+\def\INST{\texttt{INST}}
+
+\def\Phat{\hat{P}}
+
+\def\pP{\texttt{P}}
+\def\pQ{\texttt{Q}}
+\def\pF{\texttt{F}}
+\def\pX{\texttt{X}}
+\def\pb{\texttt{b}}
+\def\pe{\texttt{e}}
+\def\pv{\texttt{v}}
+\def\tail{\ensuremath{\mathit{tail}}}
+\def\INT{\ensuremath{\mathit{INT}}}
+\def\I{\ensuremath{\mathit{I}}}
+\def\pQn#1{\texttt{Q{#1}}}
+\def\ntry{\ensuremath{\mathbf{n}}}
+
+\def\Label{\mathbf{label}\;}
+\def\Jump{\mathbf{jump}\;}
+\def\hexit#1#2{{#1}^{\setdiff{#2}}}
+\def\hntry#1#2{{}^{{#2}/}{#1}}
+
+\def\combine{\!\!|\!\!}
+\def\Array{\mathbf{array}\;}
+\def\shpar#1#2{{\phantom{\parallel}}_{#1}\!\!\parallel_{#2}\;}
+
+\def\sync{\ensuremath{\mathbf{sync}}}
+\def\Mtilde{\widetilde{M}}
+\def\qqquad{\qquad\quad}
+
+\def\shared{\ensuremath{\mathbf{shared}}}
+
+\def\No{\ensuremath{\mathbf{no}}}
+\def\Yes{\ensuremath{\mathbf{yes}}}
+\def\Sor{\mathbin{\mathbf{or}}}
+\def\Sand{\mathbin{\mathbf{and}}}
+
+\def\A{\ensuremath{\mathcal{A}}}
+\def\mkRR{\Hlth{mkR}}
+\def\isRR{\Hlth{isR}}
+\def\RR{\Hlth{R}}
+
+\def\ACP{\Hlth{ACP}}
+\def\ddlock{\ensuremath{\delta}}
+
+\def\psum{\textstyle{\sum}}
+\def\MACP{{M_{ACP}}}
+\def\wrp#1{\wfp{#1}_{\textbf{Rea}}}
+\def\srp#1{\sfp{#1}_{\textbf{Rea}}}
+\def\OF{{\bullet}}
+
+\def\CSP{\Hlth{CSP}}
+\def\wcsp#1{\wfp{#1}_{\textbf{CSP}}}
+\def\scsp#1{\sfp{#1}_{\textbf{CSP}}}
+
+\def\extchoice{[\!]}
+\def\hide{\!\setdiff\!}
+
+\def\SEQ{\gg}
+\def\bufthen{\rightsquigarrow}
+
+\def\compchoice{\GIXF{\bigcirc}{13.5mu}{0.1ex}{}{/}}
+
+\def\NTM#1{$<\;\mathit{#1}\;>$}
+
+\def\PC#1{\ensuremath{\{\![#1]\!\}}}
+\def\proc{\mathbf{proc}\;}
+\def\PP{\Hlth{P}}
+\def\labs#1#2{\lambda{#1}\bullet{#2}}
+\def\ltabs#1#2#3{\labs{#1:#2}{#3}}
+
+\def\D{\ensuremath{\mathcal{D}}}
+
+\def\DDD{\Hlth{D}}
+\def\WW{\Hlth{W}}
+
+\def\prichoice{\mathbin{{}^\bullet\extchoice}}
+
+\def\step{\mathrel{\rightarrow}}
+\def\astep#1{\mathrel{\stackrel{#1}{\rightarrow}}}
+\def\ST#1#2{{\ensuremath{\PN{#1}}},\;{\ensuremath{\PN{#2}}}}
+
+\def\isterm{\nrightarrow}
+\def\sbisim{\sim_s}
+\def\wbisim{\approx_w}
+\def\divg{\uparrow}
+%
+% large multi-line expressions
+% default - left aligned
+%
+\def\MLl#1{\begin{array}{l}#1\end{array}}
+\def\MLc#1{\begin{array}{c}#1\end{array}}
+\def\MLr#1{\begin{array}{r}#1\end{array}}
+\def\ML#1{\MLl{#1}}
+%
+% large bracketed multi-line expressions
+% default - left aligned
+%
+\def\BRl#1{\left(\begin{array}{l}#1\end{array}\right)}
+\def\BRc#1{\left(\begin{array}{c}#1\end{array}\right)}
+\def\BRr#1{\left(\begin{array}{r}#1\end{array}\right)}
+\def\BR#1{\BRl{#1}}
+%
+% Set-Bracketed versions
+\def\SBRl#1{\left\{\begin{array}{l}#1\end{array}\right\}}
+\def\SBRc#1{\left\{\begin{array}{c}#1\end{array}\right\}}
+\def\SBRr#1{\left\{\begin{array}{r}#1\end{array}\right\}}
+\def\SBR#1{\SBRl{#1}}

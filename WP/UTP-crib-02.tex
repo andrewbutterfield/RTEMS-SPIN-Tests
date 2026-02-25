@@ -1,0 +1,334 @@
+\section{Relations}
+
+\subsection{Conditional}
+
+\Def{1} (Conditional)
+\begin{eqnarray*}
+     \alpha b &\subseteq& \alpha P = \alpha Q
+  \\ P \cond b Q &\defeq& (b\land P) \lor (\lnot b \land Q)
+  \\ \alpha(P \cond b Q) &\defeq& \alpha P
+\end{eqnarray*}
+
+\begin{tabular}{rlr}
+    \Law{1}&$ P \cond b P = P $&(cond idemp)
+ \\ \Law{2}&$ P \cond b Q = Q \cond{\lnot b} P $&(cond symm)
+ \\ \Law{3}
+    &$ (P\cond b Q) \cond c R = P \cond{b\land c} (Q \cond c R)
+    $&(cond assoc)
+ \\ \Law{4}
+    &$ P \cond b (Q \cond c R) = (P \cond b Q) \cond c (P \cond b R)
+    $&(cond distr)
+ \\ \Law{5}&$ P \cond \true Q = P = Q \cond \false P $&(cond unit)
+ \\ \Law{6}&$ P \cond b (Q \cond b R) = R \cond b R $&
+ \\ \Law{7} &$ P \cond b (P \cond c Q) = P \cond{b \lor c} Q $&
+\end{tabular}
+
+\subsection{Composition}
+
+\Def{1} (Sequential Composition)
+\begin{eqnarray*}
+     out\alpha P =  in\alpha'Q =\setof{v'}
+  \\ P(v');Q(v) &\defeq& \exists v_0 \suchthat P(v_0)\land Q(v_0)
+  \\ in\alpha(P(v');Q(v)) &\defeq& in\alpha P
+  \\ out\alpha(P(v');Q(v)) &\defeq& out\alpha Q
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ P;(Q;R) = (P;Q);R $&(; assoc)
+ \\ \Law{2}&$ (P \cond b Q);R = (P;R) \cond b (Q;R) $&(;-cond left distr)
+\end{tabular}
+
+\subsection{Assignment}
+
+\Def{1} (Assignment)
+\begin{eqnarray*}
+     \alpha e \subseteq A &=& \setof{x,y,\ldots,z,x',y',\ldots,z'}
+  \\ x:=_{A}e &\defeq& (x'=e\land y'=y\land \ldots\land z'=z)
+  \\ \alpha(x:=_{A}e) &\defeq& A
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ (x:=e) = (x,y:=e,y) $&
+ \\ \Law{2}&$ (x,y,z:=e,f,g) = (y,x,z := f,e,g) $&
+ \\ \Law{3}&$ (x:=e;x:=f(x)) = (x:=f(e)) $&
+ \\ \Law{4}&$ x:=e;(P \cond{b(x)} Q) = (x:=e;P)\cond{b(e)}(x:=e;Q) $&
+\end{tabular}
+
+\Def{2} (Skip)
+\begin{eqnarray*}
+     A  &=& \setof{v,v'}
+  \\ \Skip_A &\defeq& (v'=v)
+  \\ \alpha\Skip_A &\defeq& A
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{5}&$ P;\Skip_{\alpha P} = P = \Skip_{\alpha P};P $&(; unit)
+\end{tabular}
+
+\Def{3} (Array Assignment)
+\begin{eqnarray*}
+     w[i]:=e &\defeq& w \oplus \maplet{i}{e}
+\end{eqnarray*}
+
+\subsection{Non-determinism}
+
+\Def{1} (Non-deterministic choice)
+\begin{eqnarray*}
+     \alpha P  &=& \alpha Q
+  \\ P \nondet Q &\defeq& P \lor Q
+  \\ \alpha(P\nondet Q) &\defeq& \alpha P
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ P\nondet Q = Q \nondet P $&(\nondet\ symm)
+ \\ \Law{2}
+    &$ P \nondet (Q \nondet R) = (P \nondet Q) \nondet R
+    $&(\nondet\ assoc)
+ \\ \Law{3}&$ P\nondet P = P $&(\nondet\ idemp)
+ \\ \Law{4}
+    &$ P\nondet(Q\nondet R) = (P\nondet Q)\nondet(P\nondet R)
+    $&(\nondet\ distr)
+ \\ \Law{5}
+    &$ P \cond b (Q\nondet R) = (P \cond b Q) \nondet (P\cond b R)
+    $&(cond-\nondet\ distr)
+ \\ \Law{6}&$ (P\nondet Q);R = (P;R)\nondet (Q;R) $&(;-\nondet\ left distr)
+ \\ \Law{7}&$ P;(Q\nondet R) = (P;Q) \nondet (P;R) $&(;-\nondet\ right distr)
+ \\ \Law{8}
+    &$ P\nondet(Q\cond b R) = (P\nondet Q) \cond b (P\nondet R)
+    $&(\nondet-cond distr)
+\end{tabular}
+
+\Def{2} (Abort)
+\begin{eqnarray*}
+     \bot_A &\defeq& \True
+  \\ \alpha\bot_A &\defeq& A
+\end{eqnarray*}
+
+\subsection{The complete lattice of relations}
+
+\begin{tabular}{rlr}
+    \Law{1}
+    &$ [P\impliedby \nondet S]
+       \;\iff\;
+       ([P\impliedby X] \text{for all $X$ in $S$})
+    $&
+ \\ \Law{1A}&$ [\nondet S \impliedby X] \text{for all $X$ in $S$}  $&
+ \\ \Law{1B}
+    &$ \text{If }[P \impliedby X] \text{for all $X$ in $S$, then}
+     [P \impliedby \nondet S]
+   $&
+ \\ \\ & $\nondet\setof{\!\!} = \mathbf{false}$
+\end{tabular}
+
+\Def{1} (Miracle)
+\begin{eqnarray*}
+     \top_A &\defeq& \False
+  \\ \alpha\top_A &\defeq& A
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    &$ [P\implies \lub S]
+       \;\iff\;
+       ([P\implies X] \text{for all $X$ in $S$}) $
+ \\
+ \\ & $\lub\setof{\!\!} = \mathbf{true}$
+ \\
+ \\ \Law{2}
+    &$ (\lub S)\nondet Q =\lub\setof{P\nondet Q \Alt P \mof S} $
+ \\ \Law{3}
+    &$ (\nondet S)\lub Q = \nondet\setof{P\lub Q \Alt P \mof S} $
+ \\ \Law{4}
+    &$ (\nondet S);Q = \nondet\setof{P;Q \Alt P \mof S}
+    $&(; left univ disj)
+ \\ \Law{5}
+    &$ R;(\nondet S) = \nondet\setof{R;P \Alt P \mof S}
+    $&(; right univ disj)
+\end{tabular}
+
+\subsection{Recursion}
+
+\Def{1} (Weakest fixed point)
+\begin{eqnarray*}
+     \wfp F &\defeq& \join\setof{X \Alt [X \implies F(X)]}
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}
+    &$ [Y\implies \wfp F] \text{ whenever }  [Y\implies F(Y)]
+    $&(weakest fixed point)
+ \\ \Law{2}&$ [F(\wfp F) \equiv \wfp F]$&(fixed point)
+\end{tabular}
+
+\Def{2}
+\begin{eqnarray*}
+     \wfp X \suchthat \ldots X\ldots X \ldots
+     &\defeq& \wfp F
+ \\ \WHERE\; F &\defeq& \Labs{X}{\ldots X\ldots X \ldots}
+ \\
+ \\ b*P &\defeq& \wfp X \suchthat ((P;X)\cond b \Skip)
+\end{eqnarray*}
+
+\Exer{4}\\
+\begin{tabular}{rlr}
+    &$ \wfp X \suchthat F(G(X))
+       = F(\wfp X \suchthat G(F(X))) $
+ \\ &$ \text{If }
+     [G(H(X))\implies F(G(X))]
+     \text{ for all $X$, then}
+     [G(\wfp H)\implies F] $
+\end{tabular}
+
+\subsection{Strongest fixed point}
+
+\Def{1} (Strongest fixed point)
+\begin{eqnarray*}
+     \sfp F &\defeq& \lnot\wfp X \suchthat \lnot F(\lnot X)
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ [\sfp F \implies S] \text{ whenever } [F(S)\implies S] $
+ \\ \Law{2}&$ [F(\sfp F) \equiv F] $
+ \\ \Law{3}&$ \False;P = \False = P;\False$
+\end{tabular}
+
+\Lem{2}
+\[\begin{array}{ll}
+\text{If} & [F(C\implies S) \implies (C\implies S)] \text{ and }
+[C \implies (\wfp F \equiv \sfp F)]
+\\
+\text{then} & [\wfp F \implies (C\implies S)]
+\end{array}\]
+
+\Def{3} (Approximation chain)
+
+A set of predicates $E=\setof{E_i\Alt i \mof \Nat}$ is called an
+approximation chain for $C$ if
+$$
+\begin{array}{l}
+  E_0 = \False  \\
+  {}[E_i \implies E_{i+1}] \text{, for all $i$ in $\Nat$} \\
+  C = \bigvee_i E_i
+\end{array}
+$$
+
+\Lem{4}
+\[\begin{array}{ll}
+\text{If} & X\land E_n = Y \land E_n \text{, for all $n$ in \Nat}
+\\
+\text{then} & X \land (\bigvee_n E_n) = Y\land (\bigvee_n E_n)
+\end{array}\]
+
+\Def{5} ($E$-constructive)
+
+Let $E$ be an approximation chain of $C$. A function $F$ is
+$E$-constructive if. for all $X$ and $n$:
+\begin{eqnarray*}
+     F(X)\land E_{n+1} &=& F(X\land E_n)\land E_{n+1}
+\end{eqnarray*}
+For such $E$ and $F$:
+$$ C\land \wfp F = C \land \sfp F$$
+
+
+\subsection{Preconditions and postconditions}
+
+\Def{1} (Hoare triple)
+\begin{eqnarray*}
+     p\HT{Q}r &\defeq& [Q\implies(p\implies r')]
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ \If p\HT{Q}r \And p\HT{Q}s \Then p\HT{Q}(r\land s) $
+ \\ \Law{2}&$ \If p\HT{Q}r \And q\HT{Q}r \Then (p\lor q)\HT{Q}r $
+ \\ \Law{3}&$ \If p\HT{Q}r \Then (p\land q\HT{Q}(r\lor s) $
+ \\ \Law{4}&$ r(e)\HT{x:=e}r(x) $
+ \\ \Law{5}
+    &$ \If (p\land b)\HT{Q1}r \And (p\land \lnot b)\HT{Q2}r \Then p\HT{Q1 \cond b Q2}r $
+ \\ \Law{6}&$ \If p\HT{Q1}s \And s\HT{Q2}r \Then p\HT{Q1;Q2}r $
+ \\ \Law{7}&$ \If p\HT{Q1}r \And p\HT{Q2}r \Then p\HT{Q1\nondet Q2}r  $
+ \\ \Law{8}
+    &$ \If b\land c\HT{Q}c \Then c\HT{\sfp X \suchthat Q; X \cond b \Skip}(\lnot b \land c) $
+ \\ \Law{9}&$ \false\HT{Q}r \And p\HT{Q}\true \And p\HT\False\false \And p\HT\Skip p $
+\end{tabular}
+
+\Def{3} (Floyd assertion and assumption)
+\begin{eqnarray*}
+     c_\bot &\defeq& \Skip \cond c \bot \qquad \text{(assertion)}
+  \\ c^\top &\defeq& \Skip \cond c \top \qquad \text{(assumption)}
+\end{eqnarray*}
+
+\Def{4} (Weakest precondition)
+\begin{eqnarray*}
+     Q \wp r &\defeq& \lnot(Q;\lnot r)
+\end{eqnarray*}
+
+\begin{tabular}{rlr}
+    \Law{10}&$ (x:=e)\wp r(x) = r(e) $
+ \\ \Law{11}&$ (P;Q)\wp r = P \wp (Q \wp r) $
+ \\ \Law{12}&$ (P \cond b Q)\wp r = (P \wp r)\cond b (Q \wp r) $
+ \\ \Law{13}&$ (P \nondet Q) \wp r = (P \wp r) \land (Q \wp r) $
+ \\ \Law{14}&$ \If [r\implies s] \Then [Q \wp r \implies Q \wp s] $
+ \\ \Law{15}&$ \If [Q\implies S] \Then [S \wp r \implies Q \wp r] $ &(antimontonicity)
+ \\ \Law{16}&$ Q \wp (\bigwedge R) = \bigvee\setof{Q \wp r \Alt r \mof R} $
+ \\ \Law{17}&$ Q \wp \false = \false \text{ provided }Q;\True=\True $
+ \\ \Law{18}&$ [(P;Q)\implies S) \iff  [P\implies Q \wp S] $
+\end{tabular}
+
+\Exer{5}
+\begin{eqnarray*}
+     b_\bot;c_\bot &=& (b\land c)_\bot = b_\bot \nondet c_\bot
+  \\ b^\top;c^\top &=& (b\land c)^\top = b^\top \meet c^\top
+  \\ b^\top;b_\bot &=& b^\top
+\end{eqnarray*}
+
+
+\subsection{Variable declarations}
+
+\Def{1} (Declaration and undeclaration)
+\begin{eqnarray*}
+     x,x'  &\mof& A
+  \\ \var x &\defeq& \exists x\suchthat\Skip_A
+  \\ \End x &\defeq& \exists x'\suchthat\Skip_A
+  \\ \alpha(\var x) &\defeq& A \setdiff \setof{x}
+  \\ \alpha(\End x) &\defeq& A \setdiff \setof{x'}
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+           &$ \var x;Q = \exists x \suchthat Q $
+ \\        &$ Q; \End x;Q = \exists x' \suchthat Q $
+ \\ \Law{1}&$ (\var x; \var y) = (\var y; \var x) = \var x,y $
+ \\ \Law{2}&$ (\End x; \End y) = (\End y; \End x) = \End x,y $
+ \\ \Law{3}&$ (\var x; \End y) = (\End y; \var x) \text{ provided $x$,$y$ distinct} $
+ \\ \Law{4}&$ \If x:T \Then \var x = \nondet\setof{\var x:=k \Alt k \mof T}$
+ \\ \Law{5}&$ \var x; \End x = \Skip$&
+ \\ \Law{6}&$ \var x; \End x = \Skip$
+ \\ \Law{7}&$ (\End x; \var x:=e) = (x:=e) \text{ provided $x$ not in $e$} $
+ \\ \Law{8}&$ (x:=e;\End x)= \End x$&
+\end{tabular}
+
+\Def{5} (Alphabet extension)
+\begin{eqnarray*}
+     x,x'  &\notin& \alpha R
+  \\ R_{+x} &\defeq& R \land (x'=x)
+  \\ \alpha R_{+x} &\defeq& \alpha R + \setof{x,x'}
+\end{eqnarray*}
+
+If $R$ does not mention $x$:\\
+\begin{tabular}{rlr}
+    \Law{9}&$ \var x;R_{+x};P;\End x = R;\var x;P;\End x $
+ \\ \Law{2}&$ \var x;P;R_{+x};\End x = \var x;P;\End x;R $
+\end{tabular}
+
+\Exer{6}
+\begin{eqnarray*}
+     (\var x) \wp r &=& \forall x \wehave r
+  \\ (\End x) \wp r &=& r, \qquad\qquad \text{if $x$ is not free in $r$}
+\end{eqnarray*}
