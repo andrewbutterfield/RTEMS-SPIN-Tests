@@ -1,0 +1,53 @@
+
+
+\section{UTP Theory Extracts}
+
+\subsection{Hoare triple}
+\begin{eqnarray*}
+     p\HT{Q}r &\defeq& [Q\implies(p\implies r')]
+\end{eqnarray*}
+
+
+\begin{tabular}{rlr}
+    \Law{1}&$ \If p\HT{Q}r \And p\HT{Q}s \Then p\HT{Q}(r\land s) $
+ \\ \Law{2}&$ \If p\HT{Q}r \And q\HT{Q}r \Then (p\lor q)\HT{Q}r $
+ \\ \Law{3}&$ \If p\HT{Q}r \Then (p\land q\HT{Q}(r\lor s) $
+ \\ \Law{4}&$ r(e)\HT{x:=e}r(x) $
+ \\ \Law{5}
+    &$ \If (p\land b)\HT{Q1}r \And (p\land \lnot b)\HT{Q2}r \Then p\HT{Q1 \cond b Q2}r $
+ \\ \Law{6}&$ \If p\HT{Q1}s \And s\HT{Q2}r \Then p\HT{Q1;Q2}r $
+ \\ \Law{7}&$ \If p\HT{Q1}r \And p\HT{Q2}r \Then p\HT{Q1\nondet Q2}r  $
+ \\ \Law{8}
+    &$ \If b\land c\HT{Q}c \Then c\HT{\sfp X \suchthat Q; X \cond b \Skip}(\lnot b \land c) $
+ \\ \Law{9}&$ \false\HT{Q}r \And p\HT{Q}\true \And p\HT\False\false \And p\HT\Skip p $
+\end{tabular}
+
+\subsection{Floyd assertion and assumption}
+\begin{eqnarray*}
+     c_\bot &\defeq& \Skip \cond c \bot \qquad \text{(assertion)}
+  \\ c^\top &\defeq& \Skip \cond c \top \qquad \text{(assumption)}
+\end{eqnarray*}
+
+\subsection{Weakest precondition}
+\begin{eqnarray*}
+     Q \wp r &\defeq& \lnot(Q;\lnot r)
+\end{eqnarray*}
+
+\begin{tabular}{rlr}
+    \Law{10}&$ (x:=e)\wp r(x) = r(e) $
+ \\ \Law{11}&$ (P;Q)\wp r = P \wp (Q \wp r) $
+ \\ \Law{12}&$ (P \cond b Q)\wp r = (P \wp r)\cond b (Q \wp r) $
+ \\ \Law{13}&$ (P \nondet Q) \wp r = (P \wp r) \land (Q \wp r) $
+ \\ \Law{14}&$ \If [r\implies s] \Then [Q \wp r \implies Q \wp s] $
+ \\ \Law{15}&$ \If [Q\implies S] \Then [S \wp r \implies Q \wp r] $ &(antimontonicity)
+ \\ \Law{16}&$ Q \wp (\bigwedge R) = \bigvee\setof{Q \wp r \Alt r \mof R} $
+ \\ \Law{17}&$ Q \wp \false = \false \text{ provided }Q;\True=\True $
+ \\ \Law{18}&$ [(P;Q)\implies S) \iff  [P\implies Q \wp S] $
+\end{tabular}
+
+\Exer{5}
+\begin{eqnarray*}
+     b_\bot;c_\bot &=& (b\land c)_\bot = b_\bot \nondet c_\bot
+  \\ b^\top;c^\top &=& (b\land c)^\top = b^\top \meet c^\top
+  \\ b^\top;b_\bot &=& b^\top
+\end{eqnarray*}
