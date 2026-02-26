@@ -100,11 +100,14 @@ we generate test code that generates code to:
    \item run $\div$ with $n$ and $d$ as input, writing its results to $r$.
    \item check that the value of $r$ is correct.
 \end{itemize}
+
+\subsubsection{Test Example $()NN,DP$}
+
 For $(NN,DP)\then NEGDIV$, 
 $$\sgn n = -1 \land \sgn d = 1 \then r = -(\abs n \div' \abs d)$$
-we generate:
+we generate (assuming $N,D \geq 1$):
 \begin{eqnarray*}
-   && n := -7 ; d := 2 ;
+   && n := -N ; d := D ; 
 \\ && r := n \div d ;
 \\ && test(r,-(\abs n \div' \abs d))
 \end{eqnarray*}
@@ -115,6 +118,27 @@ The actual behaviour of $test(a,e)$ is
 If we assume all tests pass, 
 then here we can interpret it as a post-condition $r=-(\abs n \div' \abs d)$.
 
+So, we want to compute the weakest precondition:
+$$
+  \wp(n := -N ; d := D ; r := n \div d ,r=-(\abs n \div' \abs d))
+$$
+noting that we have a pre-condition that says: $N \geq 1 \land D \geq 1$.
+
+\begin{eqnarray*}
+\lefteqn{\wp(n := -N ; d := D ; r := n \div d ,r=-(\abs n \div' \abs d))}
+\EQm{\wp(S_1;S_2,R)}
+\\&& \wp(n := -N,\wp(d := D ; r := n \div d ,r=-(\abs n \div' \abs d)))
+\EQm{\wp(S_1;S_2,R)}
+\\&& \wp(n := -N,\wp(d := D,\wp(r := n \div d ,r=-(\abs n \div' \abs d))))
+\EQm{\wp(x:=E,R)}
+\\&& \wp(n := -N,\wp(d := D,(r=-(\abs n \div' \abs d)[n \div d/r])))
+\EQ{substitution}
+\\&& \wp(n := -N,\wp(d := D,(n \div d = -(\abs n \div' \abs d))))
+\EQ{$\wp(x:=E,R)$, substitution}
+\\&& \wp(n := -N,(n \div D = -(\abs n \div' \abs D)))
+\EQ{$\wp(x:=E,R)$, substitution}
+\\&& (-N) \div D = -(\abs N \div' \abs D)
+\end{eqnarray*}
 
 % \newpage
 % \subsection{Specifying \protect$\mod$}
