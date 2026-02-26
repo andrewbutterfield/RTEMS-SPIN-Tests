@@ -1,0 +1,90 @@
+\section{The Challenge}
+
+Partial Pre/Post-Conditions + C Tests to Formal API Semantics
+
+\subsection{Example: Integer Div/Mod}
+
+Laws of mod/div for integers in programming languages (e.g. Haskell):
+
+\begin{eqnarray*}
+   n \div (-d)    &=& -(n \div d)
+\\ (-n) \div d    &=& -(n \div d)
+\\ (-n) \div (-d) &=& n \div d
+\end{eqnarray*}
+
+\begin{eqnarray*}
+   n \mod (-d)    &=& -(n \mod d)
+\\ (-n) \mod d    &=& n \mod d
+\\ (-n) \mod (-d) &=& -(n \mod d) 
+\end{eqnarray*}
+
+\def\abs#1{|{\!#1\!}|}
+\def\sgn#1{\mathsf{sgn}~{#1}}
+
+To reason about the above we also need functions for 
+sign ($\sgn\_$)
+and absolute values ($\abs{\_}$).
+
+\begin{eqnarray*}
+   \sgn n  &=& 1, \qquad n > 0
+\\         &=& -1, \qquad n < 0
+\\         &=& 0, \qquad \text{otherwise}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+   \abs n  &=& -n, \qquad n < 0
+\\         &=& n, \qquad \text{otherwise}
+\end{eqnarray*}
+
+We assume that we know about integer arithmetic and comparisons.
+
+We have preconditions regarding the ``zeroness`` of the divisor,
+and the sign of both inputs. The sign-function can establish these.
+We can express postconditions in terms of 
+the absolute values and signs of the inputs.
+
+\newpage
+\subsection{Preconditions}
+
+Those regarding $n$:
+\begin{eqnarray*}
+   N0 && \sgn n = 0
+\\ NP && \sgn n = 1
+\\ NN && \sgn n = -1
+\end{eqnarray*}
+
+Those regarding $d$:
+\begin{eqnarray*}
+   D0 && \sgn d = 0
+\\ DP && \sgn d = 1
+\\ DN && \sgn d = -1
+\end{eqnarray*}
+
+\subsection{Transitions}
+
+We simplfiy by assuming functions $\div'$ and $\mod'$
+that work correctly on positive numbers 
+
+Starting with $\div$:
+\begin{eqnarray*}
+   n \div d &=& r
+\\ \_,D0 && r = \bot \qquad  UNDEFDIV
+\\ NP,DP && r = \abs n \div' \abs d \qquad  ISDIV
+\\ NN,DP && r = -(\abs n \div' \abs d) \qquad  NEGDIV
+\\ NP,DN && r = -(\abs n \div' \abs d) \qquad  NEGDIV
+\\ NN,DN && r = \abs n \div' \abs d\qquad  ISDIV
+\end{eqnarray*}
+
+Now, $\mod$:
+\begin{eqnarray*}
+   n \mod d &=& r
+\\ \_,D0 && r = \bot \qquad  UNDEFMOD
+\\ NP,DP && r = \abs n \mod' \abs d \qquad ISMOD
+\\ NN,DP && r = \abs n \mod' \abs d \qquad ISMOD
+\\ NP,DN && r = -(\abs n \mod' \abs d) \qquad NEGMOD
+\\ NN,DN && r = -(\abs n \mod' \abs d) \qquad NEGMOD
+\end{eqnarray*}
+
+\subsection{Postconditions}
+
+UNDEFDIV to NEGMOD
