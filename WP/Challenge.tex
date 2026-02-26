@@ -43,48 +43,99 @@ and the sign of both inputs. The sign-function can establish these.
 We can express postconditions in terms of 
 the absolute values and signs of the inputs.
 
+We want a collection of disjoint and exhaustive
+pre-conditions whose disjunction evaluates to true.
+
 \newpage
-\subsection{Preconditions}
+
+\subsection{Specifying $\div$}
+
+\subsubsection{Preconditions}
 
 Those regarding $n$:
 \begin{eqnarray*}
-   N0 && \sgn n = 0
-\\ NP && \sgn n = 1
-\\ NN && \sgn n = -1
+   \pre n &=& \setof{NZ,NP,NN}
+\\ NZ &:& \sgn n = 0
+\\ NP &:& \sgn n = 1
+\\ NN &:& \sgn n = -1
 \end{eqnarray*}
 
 Those regarding $d$:
 \begin{eqnarray*}
-   D0 && \sgn d = 0
-\\ DP && \sgn d = 1
-\\ DN && \sgn d = -1
+   \pre d &=& \setof{DZ,DP,DN}
+\\ DZ &:& \sgn d = 0
+\\ DP &:& \sgn d = 1
+\\ DN &:& \sgn d = -1
 \end{eqnarray*}
 
-\subsection{Transitions}
+\subsubsection{Postconditions}
 
-We simplfiy by assuming functions $\div'$ and $\mod'$
-that work correctly on positive numbers 
-
-Starting with $\div$:
+We assume function $\div'$ works correctly on positive numbers. 
 \begin{eqnarray*}
-   n \div d &=& r
-\\ \_,D0 && r = \bot \qquad  UNDEFDIV
-\\ NP,DP && r = \abs n \div' \abs d \qquad  ISDIV
-\\ NN,DP && r = -(\abs n \div' \abs d) \qquad  NEGDIV
-\\ NP,DN && r = -(\abs n \div' \abs d) \qquad  NEGDIV
-\\ NN,DN && r = \abs n \div' \abs d\qquad  ISDIV
+   \post\div &=& \setof{UNDEFDIV,ISDIV,NEGDIV}
+\\ n \div d &=& r
+\\ UNDEFDIV &:& r = \bot 
+\\ ISDIV    &:& r = \abs n \div' \abs d  
+\\ NEGDIV   &:& r = -(\abs n \div' \abs d) 
 \end{eqnarray*}
 
-Now, $\mod$:
+\subsubsection{Transitions}
+
 \begin{eqnarray*}
-   n \mod d &=& r
-\\ \_,D0 && r = \bot \qquad  UNDEFMOD
-\\ NP,DP && r = \abs n \mod' \abs d \qquad ISMOD
-\\ NN,DP && r = \abs n \mod' \abs d \qquad ISMOD
-\\ NP,DN && r = -(\abs n \mod' \abs d) \qquad NEGMOD
-\\ NN,DN && r = -(\abs n \mod' \abs d) \qquad NEGMOD
+   \pre{n}\times\pre{d} &\then& \post\div
+\\ (\_,DZ) &\then& UNDEFDIV
+\\ (NP,DP) &\then& ISDIV
+\\ (NN,DP) &\then& NEGDIV
+\\ (NP,DN) &\then& NEGDIV
+\\ (NN,DN) &\then& ISDIV
 \end{eqnarray*}
 
-\subsection{Postconditions}
+\newpage
+\subsection{Testing $\div$}
 
-UNDEFDIV to NEGMOD
+Given a map from $(preN,preD)$ to $post$,
+we generate test code that generates code to:
+\begin{itemize}
+   \item initialise $n$ and $d$ that satisfies $preN \land preD$
+   \item run $\div$ with $n$ and $d$ as input, writing its results to $r$.
+   \item check that the value of $r$ is correct.
+\end{itemize}
+For $(NN,DP)\then NEGDIV$, 
+$$\sgn n = -1 \land \sgn d = 1 \then r = -(\abs n \div' \abs d)$$
+we generate:
+\begin{eqnarray*}
+   && n := -7 ; d := 2 ;
+\\ && r := n \div d ;
+\\ && test(r,-(\abs n \div' \abs d))
+\end{eqnarray*}
+The actual behaviour of $test(a,e)$ is
+\begin{eqnarray*}
+   && \ifC a = e \thenC \skipC \elseC logfail(a,e) \endC
+\end{eqnarray*}
+If we assume all tests pass, 
+then here we can interpret it as a post-condition $r=-(\abs n \div' \abs d)$.
+
+
+% \newpage
+% \subsection{Specifying \protect$\mod$}
+% \subsubsection{Preconditions}
+% Same as for $\div$.
+% \subsubsection{Postconditions}
+% We assume function $\mod'$ works correctly on positive numbers.
+% \begin{eqnarray*}
+%    n \mod d &=& m
+% \\ UNDEFMOD &:& m = \bot 
+% \\ ISMOD    &:& m = \abs n \mod' \abs d 
+% \\ NEGMOD   &:& m = -(\abs n \mod' \abs d) 
+% \end{eqnarray*}
+% \subsubsection{Transitions}
+% \begin{eqnarray*}
+%    \_,DZ &\then& UNDEFMOD
+% \\ NP,DP &\then& ISMOD
+% \\ NN,DP &\then& ISMOD
+% \\ NP,DN &\then& NEGMOD
+% \\ NN,DN &\then& NEGMOD
+% \end{eqnarray*}
+
+
+
