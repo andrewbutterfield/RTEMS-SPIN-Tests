@@ -154,44 +154,98 @@ We want to compute the weakest precondition:
 $$
   \wp(n := N0 ; d := D0 ; r := n \div d ,r = post)
 $$
+We can in fact do some pre-computation here:
+\begin{eqnarray*}
+\lefteqn{\wp(n := N0 ; d := D0 ; r := n \div d ,r=post)}
+\EQm{\wp(S_1;S_2,R)}
+\\&& \wp(n := N0,\wp(d := D0 ; r := n \div d ,r=post))
+\EQm{\wp(S_1;S_2,R)}
+\\&& \wp(n := N0,\wp(d := D0,\wp(r := n \div d ,r=post)))
+\EQm{\wp(x:=E,R)}
+\\&& \wp(n := N0,\wp(d := D0,(r=post[n \div d/r])))
+\EQm{\wp(x:=E,R)}
+\\&& \wp(n := N0,(r=post[n \div d/r])[D0/d])
+\EQm{\wp(x:=E,R)}
+\\&& ((r=post[n \div d/r])[D0/d])[N0/n]
+\EQ{substitution composition}
+\\&& (r=post)[N0 \div D0/r]
+\EQ{expression substitution}
+\\&& (N0 \div D0)=post[N0 \div D0/r]
+\EQ{$r$ not free in $post$}
+\\&& (N0 \div D0)=post
+\end{eqnarray*}
 
 
 
-\subsection{Computing Weakest Precondtions}
+
+
+\subsection{Computing Weakest Preconditions}
+
+\subsubsection{Transition $(\_,DZ) \then UNDEFDIV$}
+
+\begin{eqnarray*}
+   N0 &=& \_
+\\ D0 &=& 0
+\\ post &=& \bot
+\end{eqnarray*}
+$$
+(N0 \div D0)=post
+\qquad\then\qquad
+\_ \div 0\quad=\quad\bot
+$$
+
+
+\subsubsection{Transition $(NP,DP) \then ISDIV$}
+
+\begin{eqnarray*}
+   N0 &=& N
+\\ D0 &=& D
+\\ post &=& \abs n \div' \abs d
+\end{eqnarray*}
+$$
+(N0 \div D0)=post
+\qquad\then\qquad
+N \div D\quad=\quad\abs n \div' \abs d
+$$
 
 \subsubsection{Transition $(NN,DP) \then NEGDIV$}
 
-$$PRE: \qquad \sgn n = -1 \land \sgn d = 1 \then r = -(\abs n \div' \abs d)$$
 \begin{eqnarray*}
-   && n := -N ;
-\\ && d := D ; 
-\\ && r := n \div d ;
+   N0 &=& -N
+\\ D0 &=& D
+\\ post &=& -(\abs n \div' \abs d)
 \end{eqnarray*}
-$$POST: \qquad r \quad = \quad -(\abs n \div' \abs d))$$
-
-then here we can interpret it as a post-condition $r=-(\abs n \div' \abs d)$.
-
-So, we want to compute the weakest precondition:
 $$
-  \wp(n := -N ; d := D ; r := n \div d ,r=-(\abs n \div' \abs d))
+(N0 \div D0)=post
+\qquad\then\qquad
+-N \div D\quad=\quad-(\abs n \div' \abs d)
 $$
-noting that we have a pre-condition that says: $N \geq 1 \land D \geq 1$.
+
+\subsubsection{Transition $(NP,DN) \then NEGDIV$}
 
 \begin{eqnarray*}
-\lefteqn{\wp(n := -N ; d := D ; r := n \div d ,r=-(\abs n \div' \abs d))}
-\EQm{\wp(S_1;S_2,R)}
-\\&& \wp(n := -N,\wp(d := D ; r := n \div d ,r=-(\abs n \div' \abs d)))
-\EQm{\wp(S_1;S_2,R)}
-\\&& \wp(n := -N,\wp(d := D,\wp(r := n \div d ,r=-(\abs n \div' \abs d))))
-\EQm{\wp(x:=E,R)}
-\\&& \wp(n := -N,\wp(d := D,(r=-(\abs n \div' \abs d)[n \div d/r])))
-\EQ{substitution}
-\\&& \wp(n := -N,\wp(d := D,(n \div d = -(\abs n \div' \abs d))))
-\EQ{$\wp(x:=E,R)$, substitution}
-\\&& \wp(n := -N,(n \div D = -(\abs n \div' \abs D)))
-\EQ{$\wp(x:=E,R)$, substitution}
-\\&& (-N) \div D = -(\abs N \div' \abs D)
+   N0 &=& N
+\\ D0 &=& -D
+\\ post &=& -(\abs n \div' \abs d)
 \end{eqnarray*}
+$$
+(N0 \div D0)=post
+\qquad\then\qquad
+N \div -D\quad=\quad-(\abs n \div' \abs d)
+$$
+
+\subsubsection{Transition $(NN,DN) \then ISDIV$}
+
+\begin{eqnarray*}
+   N0 &=& -N
+\\ D0 &=& -D
+\\ post &=& \abs n \div' \abs d
+\end{eqnarray*}
+$$
+(N0 \div D0)=post
+\qquad\then\qquad
+-N \div -D\quad=\quad\abs n \div' \abs d
+$$
 
 % \newpage
 % \subsection{Specifying \protect$\mod$}
