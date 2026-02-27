@@ -177,8 +177,6 @@ We can in fact do some pre-computation here:
 
 
 
-
-
 \subsection{Computing Weakest Preconditions}
 
 \subsubsection{Transition $(\_,DZ) \then UNDEFDIV$}
@@ -195,7 +193,6 @@ We can in fact do some pre-computation here:
 \end{eqnarray*}
 
 
-
 \subsubsection{Transition $(NP,DP) \then ISDIV$}
 
 \begin{eqnarray*}
@@ -208,6 +205,7 @@ We can in fact do some pre-computation here:
 \\
 \\ n>0 \land d>0 &\implies& n \div d = \abs n \div' \abs d
 \end{eqnarray*}
+
 
 \subsubsection{Transition $(NN,DP) \then NEGDIV$}
 
@@ -236,6 +234,7 @@ We can in fact do some pre-computation here:
 \\ n>0 \land d<0 &\implies& n \div d = -(\abs n \div' \abs d)
 \end{eqnarray*}
 
+
 \subsubsection{Transition $(NN,DN) \then ISDIV$}
 
 \begin{eqnarray*}
@@ -250,6 +249,16 @@ We can in fact do some pre-computation here:
 \end{eqnarray*}
 
 \subsection{Determining Pre-Post Semantics}
+
+We have:
+\begin{eqnarray*}
+             d=0 &\implies& \_ \div d  =  \bot
+\\ n>0 \land d>0 &\implies& n  \div d  =  \abs n \div' \abs d
+\\ n<0 \land d>0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
+\\ n>0 \land d<0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
+\\ n<0 \land d<0 &\implies& n  \div d  =  \abs n \div' \abs d
+\end{eqnarray*}
+
 
 
 
