@@ -19,18 +19,9 @@ Laws of mod/div for integers in programming languages (e.g. Haskell):
 \end{eqnarray*}
 
 \def\abs#1{|{\!#1\!}|}
-\def\sgn#1{\mathsf{sgn}~{#1}}
 
-To reason about the above we also need functions for 
-sign ($\sgn\_$)
-and absolute values ($\abs{\_}$).
 
-\begin{eqnarray*}
-   \sgn n  &=& 1, \qquad n > 0
-\\         &=& -1, \qquad n < 0
-\\         &=& 0, \qquad \text{otherwise}
-\end{eqnarray*}
-
+To reason about the above we also need absolute values ($\abs{\_}$).
 \begin{eqnarray*}
    \abs n  &=& -n, \qquad n < 0
 \\         &=& n, \qquad \text{otherwise}
@@ -55,17 +46,17 @@ pre-conditions whose disjunction evaluates to true.
 Those regarding $n$:
 \begin{eqnarray*}
    \pre n &=& \setof{NZ,NP,NN}
-\\ NZ &\defs& \sgn n = 0
-\\ NP &\defs& \sgn n = 1
-\\ NN &\defs& \sgn n = -1
+\\ NZ &\defs&  n = 0
+\\ NP &\defs&  n > 0
+\\ NN &\defs&  n < 0
 \end{eqnarray*}
 
 Those regarding $d$:
 \begin{eqnarray*}
    \pre d &=& \setof{DZ,DP,DN}
-\\ DZ &\defs& \sgn d = 0
-\\ DP &\defs& \sgn d = 1
-\\ DN &\defs& \sgn d = -1
+\\ DZ &\defs&  d = 0
+\\ DP &\defs&  d > 0
+\\ DN &\defs&  d < 0
 \end{eqnarray*}
 
 \subsubsection{Postconditions}
@@ -188,8 +179,7 @@ We can in fact do some pre-computation here:
 \\ (N0 \div D0)=post
    &=&
    \_ \div 0\quad=\quad\bot
-\\
-\\ d = 0 &\implies& \_ \div d = \bot
+\\  d = 0 &\implies& \_ \div d = \bot
 \end{eqnarray*}
 
 
@@ -202,8 +192,7 @@ We can in fact do some pre-computation here:
 \\ (N0 \div D0)=post 
    &=&
    N \div D \quad=\quad \abs n \div' \abs d
-\\
-\\ n>0 \land d>0 &\implies& n \div d = \abs n \div' \abs d
+\\  n>0 \land  d>0 &\implies& n \div d = \abs n \div' \abs d
 \end{eqnarray*}
 
 
@@ -216,8 +205,7 @@ We can in fact do some pre-computation here:
 \\ (N0 \div D0)=post
    &=&
    -N \div D\quad=\quad-(\abs n \div' \abs d)
-\\
-\\ n<0 \land d>0 &\implies& n \div d = -(\abs n \div' \abs d)
+\\  n<0 \land  d>0 &\implies& n \div d = -(\abs n \div' \abs d)
 \end{eqnarray*}
 
 
@@ -230,8 +218,7 @@ We can in fact do some pre-computation here:
 \\ (N0 \div D0)=post
    &=&
    N \div -D\quad=\quad-(\abs n \div' \abs d)
-\\
-\\ n>0 \land d<0 &\implies& n \div d = -(\abs n \div' \abs d)
+\\  n>0 \land  d<0 &\implies& n \div d = -(\abs n \div' \abs d)
 \end{eqnarray*}
 
 
@@ -244,19 +231,18 @@ We can in fact do some pre-computation here:
 \\ (N0 \div D0)=post
    &=&
    -N \div -D\quad=\quad\abs n \div' \abs d
-\\
-\\ n<0 \land d<0 &\implies& n \div d = \abs n \div' \abs d
+\\  n<0 \land  d<0 &\implies& n \div d = \abs n \div' \abs d
 \end{eqnarray*}
 
 \subsection{Determining Pre-Post Semantics}
 
-We have:
+We have five implications, with disjoint antecedents:
 \begin{eqnarray*}
-             d=0 &\implies& \_ \div d  =  \bot
-\\ n>0 \land d>0 &\implies& n  \div d  =  \abs n \div' \abs d
-\\ n<0 \land d>0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
-\\ n>0 \land d<0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
-\\ n<0 \land d<0 &\implies& n  \div d  =  \abs n \div' \abs d
+               d=0 &\implies& \_ \div d  =  \bot
+\\  n>0 \land  d>0 &\implies& n  \div d  =  \abs n \div' \abs d
+\\  n<0 \land  d>0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
+\\  n>0 \land  d<0 &\implies& n  \div d  =  -(\abs n \div' \abs d)
+\\  n<0 \land  d<0 &\implies& n  \div d  =  \abs n \div' \abs d
 \end{eqnarray*}
 
 
