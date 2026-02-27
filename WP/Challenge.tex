@@ -55,17 +55,17 @@ pre-conditions whose disjunction evaluates to true.
 Those regarding $n$:
 \begin{eqnarray*}
    \pre n &=& \setof{NZ,NP,NN}
-\\ NZ &:& \sgn n = 0
-\\ NP &:& \sgn n = 1
-\\ NN &:& \sgn n = -1
+\\ NZ &\defs& \sgn n = 0
+\\ NP &\defs& \sgn n = 1
+\\ NN &\defs& \sgn n = -1
 \end{eqnarray*}
 
 Those regarding $d$:
 \begin{eqnarray*}
    \pre d &=& \setof{DZ,DP,DN}
-\\ DZ &:& \sgn d = 0
-\\ DP &:& \sgn d = 1
-\\ DN &:& \sgn d = -1
+\\ DZ &\defs& \sgn d = 0
+\\ DP &\defs& \sgn d = 1
+\\ DN &\defs& \sgn d = -1
 \end{eqnarray*}
 
 \subsubsection{Postconditions}
@@ -74,9 +74,9 @@ We assume function $\div'$ works correctly on positive numbers.
 \begin{eqnarray*}
    \post\div &=& \setof{UNDEFDIV,ISDIV,NEGDIV}
 \\ n \div d &=& r
-\\ UNDEFDIV &:& r = \bot 
-\\ ISDIV    &:& r = \abs n \div' \abs d  
-\\ NEGDIV   &:& r = -(\abs n \div' \abs d) 
+\\ UNDEFDIV &\defs& r = \bot 
+\\ ISDIV    &\defs& r = \abs n \div' \abs d  
+\\ NEGDIV   &\defs& r = -(\abs n \div' \abs d) 
 \end{eqnarray*}
 
 \subsubsection{Transitions}
@@ -114,12 +114,12 @@ we need need our derived semantics to cover all possible values involved.
 
 The preconditions are implemented by assignments that ``make them so'':
 \begin{eqnarray*}
-   NZ &:& n := 0
-\\ NP &:& n := N
-\\ NN &:& n := -N
-\\ DZ &:& d := 0
-\\ DP &:& d := D
-\\ DN &:& d := -D
+   NZ &\refinedby& n := 0
+\\ NP &\refinedby& n := N
+\\ NN &\refinedby& n := -N
+\\ DZ &\refinedby& d := 0
+\\ DP &\refinedby& d := D
+\\ DN &\refinedby& d := -D
 \end{eqnarray*}
 We then execute $r := n \div d$ 
 after the above initialisations have been done.
@@ -255,9 +255,9 @@ $$
 % We assume function $\mod'$ works correctly on positive numbers.
 % \begin{eqnarray*}
 %    n \mod d &=& m
-% \\ UNDEFMOD &:& m = \bot 
-% \\ ISMOD    &:& m = \abs n \mod' \abs d 
-% \\ NEGMOD   &:& m = -(\abs n \mod' \abs d) 
+% \\ UNDEFMOD &\defs& m = \bot 
+% \\ ISMOD    &\defs& m = \abs n \mod' \abs d 
+% \\ NEGMOD   &\defs& m = -(\abs n \mod' \abs d) 
 % \end{eqnarray*}
 % \subsubsection{Transitions}
 % \begin{eqnarray*}
