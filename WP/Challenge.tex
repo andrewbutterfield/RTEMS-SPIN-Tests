@@ -101,21 +101,74 @@ we generate test code that generates code to:
    \item check that the value of $r$ is correct.
 \end{itemize}
 
-\subsubsection{Test Example $()NN,DP$}
+\subsubsection{Test Preconditions}
 
-For $(NN,DP)\then NEGDIV$, 
-$$\sgn n = -1 \land \sgn d = 1 \then r = -(\abs n \div' \abs d)$$
-we generate (assuming $N,D \geq 1$):
+Since the precondition is based on the signs to the numbers,
+we shall introduce symbolic test inputs $N$ and $D$, 
+that are both non-negative:
+$$ N \geq 1 \land D \geq 1$$
+We use these because while it is necessary 
+to use concrete values in actual tests 
+($n=7 \land d =2$, say),
+we need need our derived semantics to cover all possible values involved.
+
+The preconditions are implemented by assignments that ``make them so'':
 \begin{eqnarray*}
-   && n := -N ; d := D ; 
-\\ && r := n \div d ;
-\\ && test(r,-(\abs n \div' \abs d))
+   NZ &:& n := 0
+\\ NP &:& n := N
+\\ NN &:& n := -N
+\\ DZ &:& d := 0
+\\ DP &:& d := D
+\\ DN &:& d := -D
 \end{eqnarray*}
-The actual behaviour of $test(a,e)$ is
+We then execute $r := n \div d$ 
+after the above initialisations have been done.
+
+\newpage
+\subsubsection{Postcondition Tests}
+
+We then run the following test:
+$$test(r,\post\div)$$
+The actual behaviour of a real test of the form $test(a,e)$ is:
 \begin{eqnarray*}
    && \ifC a = e \thenC \skipC \elseC logfail(a,e) \endC
 \end{eqnarray*}
 If we assume all tests pass, 
+then we can interpret it as a post-condition $a=e$,
+or in this case: $r = \post\div$.
+
+So basically we have code of the following general form:
+\begin{eqnarray*}
+   && n := N0 ; \qquad  N0 \in \setof{0,N,-N}  
+\\ && d := D0 ; \qquad  D0 \in \setof{0,D,-D} 
+\\ && r := n \div d ;
+\end{eqnarray*}
+with post-condition $r = post(n,d)$
+where:
+$$
+post \in \{ \bot, \abs n \div' \abs d, -(\abs n \div' \abs d)\}
+$$
+
+
+We want to compute the weakest precondition:
+$$
+  \wp(n := N0 ; d := D0 ; r := n \div d ,r = post)
+$$
+
+
+
+\subsection{Computing Weakest Precondtions}
+
+\subsubsection{Transition $(NN,DP) \then NEGDIV$}
+
+$$PRE: \qquad \sgn n = -1 \land \sgn d = 1 \then r = -(\abs n \div' \abs d)$$
+\begin{eqnarray*}
+   && n := -N ;
+\\ && d := D ; 
+\\ && r := n \div d ;
+\end{eqnarray*}
+$$POST: \qquad r \quad = \quad -(\abs n \div' \abs d))$$
+
 then here we can interpret it as a post-condition $r=-(\abs n \div' \abs d)$.
 
 So, we want to compute the weakest precondition:
