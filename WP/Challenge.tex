@@ -245,8 +245,22 @@ We have five implications, with disjoint antecedents:
 \\  n<0 \land  d<0 &\implies& n  \div d  =  \abs n \div' \abs d
 \end{eqnarray*}
 
+The above has the form $\bigwedge_i\setof{P_i \implies Q_i}$ 
+with disjoint $P_i$.
+\begin{eqnarray*}
+\lefteqn{\bigwedge_i\setof{P_i \implies Q_i}}
+\EQVm{A\implies B = \lnot A \lor B}
+\\&& \bigwedge_i\setof{\lnot P_i \lor Q_i}
+\end{eqnarray*}
+Hmmm.
 
-
+Some laws regarding implication:
+\begin{eqnarray*}
+    A \land B \implies C   &\equiv& (A \implies C) \lor  (B \implies C)
+\\  A \lor  B \implies C   &\equiv& (A \implies C) \land (B \implies C)
+\\  A \implies (B \land C) &\equiv& (A \implies B) \land (A \implies C)
+\\  A \implies (B \lor C)  &\equiv& (A \implies B) \lor  (A \implies C)
+\end{eqnarray*}
 
 
 
